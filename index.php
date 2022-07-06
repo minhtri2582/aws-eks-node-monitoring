@@ -38,19 +38,21 @@ $subject = $input['subject'];
 $to = $input['to'];
 $content = $input['content'];
 
-if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
-    header("HTTP/1.1 400 Wrong Email");
-    echo json_encode([
-        'result'    =>  false,
-        'message'   =>  "Email is invalid"
-    ]);
-    exit();
+foreach ($to as $email) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("HTTP/1.1 400 Wrong Email");
+        echo json_encode([
+            'result' => false,
+            'message' => "Email is invalid"
+        ]);
+        exit();
+    }
 }
 
 sendMail($subject, $content, $to);
 echo json_encode([
     'result'    =>  true,
-    'message'   =>  "Sent email $to"
+    'message'   =>  "Sent email"
 ]);
 
 function sendMail($subject, $content, $to)
