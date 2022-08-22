@@ -89,7 +89,8 @@ function sendMail($subject, $content, $to)
         if ($result) {
             echo json_encode([
                 'result' => true,
-                'message' => "Sent email. Subject: $subject. To: " . json_encode($to)
+                'message' => "Sent email. Subject: $subject. To: " . json_encode($to),
+                'result'    =>  print_r($result)
             ]);
         } else {
             echo json_encode([
