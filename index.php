@@ -38,9 +38,19 @@ $subject = $input['subject'];
 $to = $input['to'];
 $content = $input['content'];
 
+if (empty($to)) {
+
+    header("HTTP/1.1 408 No Email");
+    echo json_encode([
+        'result' => false,
+        'message' => "Email is empty"
+    ]);
+    exit();
+}
+
 foreach ($to as $email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("HTTP/1.1 400 Wrong Email");
+        header("HTTP/1.1 408 Wrong Email");
         echo json_encode([
             'result' => false,
             'message' => "Email is invalid"
@@ -50,10 +60,6 @@ foreach ($to as $email) {
 }
 
 sendMail($subject, $content, $to);
-echo json_encode([
-    'result'    =>  true,
-    'message'   =>  "Sent email"
-]);
 
 function sendMail($subject, $content, $to)
 {
@@ -68,15 +74,33 @@ function sendMail($subject, $content, $to)
         ->setPassword($password)
         ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false)));
 
-    // Create the Mailer using your created Transport
-    $mailer = new Swift_Mailer($transport);
+    try {
+        // Create the Mailer using your created Transport
+        $mailer = new Swift_Mailer($transport);
 
-    // Create a message
-    $message = (new Swift_Message($subject))
-        ->setFrom([$from])
-        ->setTo($to)
-        ->setBody($content,  'text/html');
+        // Create a message
+        $message = (new Swift_Message($subject))
+            ->setFrom([$from])
+            ->setTo($to)
+            ->setBody($content, 'text/html');
 
-    // Send the message
-    return $mailer->send($message);
+        // Send the message
+        $result = $mailer->send($message);
+        if ($result) {
+            echo json_encode([
+                'result' => true,
+                'message' => "Sent email. Subject: $subject. To: " . json_encode($to)
+            ]);
+        } else {
+            echo json_encode([
+                'result' => false,
+                'message' => $result
+            ]);
+        }
+    } catch (Exception $e) {
+        echo json_encode([
+            'result' => false,
+            'message' => $e->getMessage()
+        ]);
+    }
 }
