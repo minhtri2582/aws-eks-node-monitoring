@@ -1,4 +1,5 @@
 <?php
+require "bootstrap.php";
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
 if (count($argv) < 3) {
@@ -25,7 +26,7 @@ foreach ($toArray as $email) {
     }
 }
 
-sendMail($subject, $content, $to);
+sendMail($subject, $content, $toArray);
 
 function sendMail($subject, $content, $to)
 {
