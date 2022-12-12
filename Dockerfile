@@ -26,3 +26,5 @@ RUN  docker-php-ext-install \
 
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
+RUN rm -rf .git*
+RUN rm -rf .env*
