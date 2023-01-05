@@ -15,7 +15,7 @@ $to = $argv[2];
 $content = $argv[3];
 
 $toArray = explode(',', $to);
-foreach ($toArray as $email) {
+foreach ($toArray as $email) {	
     if (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
         header("HTTP/1.1 408 Wrong Email");
         echo json_encode([
