@@ -34,9 +34,12 @@ function sendMail($subject, $content, $to)
     $username = getenv("USERNAME");
     $password = getenv("PASSWORD");
     $from = getenv("SMTP_FROM");
+    $port = empty(getenv("SMTP_PORT"))?587:getenv("SMTP_PORT");
+    $encryption = getenv("SMTP_ENCRYPT");
 
     // Create the Transport
-    $transport = (new Swift_SmtpTransport($smtp, 587, 'tls'))
+
+    $transport = (new Swift_SmtpTransport($smtp, $port, $encryption))
         ->setUsername($username)
         ->setPassword($password)
         ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false)));
