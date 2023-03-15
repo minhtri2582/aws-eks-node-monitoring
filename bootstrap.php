@@ -1,8 +1,8 @@
 <?php
-
 require 'vendor/autoload.php';
-
 use Dotenv\Dotenv;
 
-$dotenv = new DotEnv(__DIR__);
-$dotenv->load();
+if (file_exists(".env")) {
+    $dotenv = new DotEnv(__DIR__);
+    $dotenv->load();
+}

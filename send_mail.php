@@ -1,6 +1,6 @@
 <?php
-require "bootstrap.php";
-
+include "bootstrap.php";
+error_reporting(E_ALL ^ E_DEPRECATED);
 // pass the request method and user ID to the PersonController and process the HTTP request:
 if (count($argv) < 3) {
     echo json_encode([
@@ -15,7 +15,7 @@ $to = $argv[2];
 $content = $argv[3];
 
 $toArray = explode(',', $to);
-foreach ($toArray as $email) {	
+foreach ($toArray as $email) {
     if (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
         header("HTTP/1.1 408 Wrong Email");
         echo json_encode([
