@@ -12,3 +12,6 @@ spec:
             - name: check-node-status
               image: minhtri2582/aws-eks-node-monitoring:latest
               imagePullPolicy: IfNotPresent
+              envFrom:
+                - secretRef:
+                    name: check-node-status-secret
