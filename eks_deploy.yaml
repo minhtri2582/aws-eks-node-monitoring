@@ -1,0 +1,14 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: check-node-status
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: check-node-status
+              image: minhtri2582/aws-eks-node-monitoring:latest
+              imagePullPolicy: IfNotPresent
