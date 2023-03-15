@@ -35,4 +35,5 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
-CMD "aws eks --region ap-southeast-1 update-kubeconfig --name $EKS_CLUSTER && php eks_node_check.php"
+
+CMD ["/bin/bash", "-c", "aws eks --region ap-southeast-1 update-kubeconfig --name $EKS_CLUSTER;php eks_node_check.php"]
