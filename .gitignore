@@ -476,3 +476,4 @@ composer.lock
 *.scss.map
 /.env
 /test/
+/.env.sh
