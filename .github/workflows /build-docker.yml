@@ -26,6 +26,6 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/eks-monitoring:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/aws-eks-node-monitoring:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
