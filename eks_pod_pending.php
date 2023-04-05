@@ -10,7 +10,7 @@ $content = '';
 for ($i=2;$i<count($out);$i++) {
     $cols = preg_split('/\s+/', $out[$i]);
     $status = $cols[3];
-    if ($status == "Running") {
+    if ($status == "Pending") {
         $namespace = $cols[0];
         $pod = $cols[1];
         $check = false;
