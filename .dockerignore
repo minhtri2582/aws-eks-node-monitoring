@@ -2,3 +2,4 @@
 .env*
 Dockerfile
 eks_deploy.yaml
+k8s/*

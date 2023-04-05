@@ -23,5 +23,5 @@ for ($i=2;$i<count($out);$i++) {
 
 if ($check) {
     $date = date("[Y-m-d H:i:s]");
-    echo "$date Everything is OK.\n";
+    echo "$date NodeCheck is OK.\n";
 }
