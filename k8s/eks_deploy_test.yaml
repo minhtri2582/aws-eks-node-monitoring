@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - name: my-container
+      image: minhtri2582/aws-eks-node-monitoring:latest
+      imagePullPolicy: IfNotPresent
+      envFrom:
+        - secretRef:
+            name: check-node-status-secret
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 30; done;" ]
